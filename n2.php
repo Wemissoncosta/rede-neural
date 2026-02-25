@@ -21,12 +21,19 @@ class Neuronio {
             $this->somaPonderada += $valor * $this->pesos[$i];
         }
     }
-
-    // Aplica a Função de Ativação (Tangente Hiperbólica)
+   
+    // Aplicando a Função de Ativação (Tangente Hiperbólica)
     public function ativar(): void {
         $e = M_E;
         $s = $this->somaPonderada;
         $this->saida = (pow($e, $s) - pow($e, -$s)) / (pow($e, $s) + pow($e, -$s));
+    }
+
+     // Aplicando a Função Ativação (Sigmoide)
+    public function ativar2(): void {
+        $e = M_E;
+        $s = $this->somaponderada;
+        $this->saida = 1 / (1 + pow($e, -$s));
     }
 }
 
@@ -47,7 +54,20 @@ $meuNeuronio = new Neuronio($entradas, $pesos);
 $meuNeuronio->calcularSoma();
 $meuNeuronio->ativar();
 
-echo "\n------ Resultado ------\n";
+echo "\n------ Resultado Tangente Hiperbólica ------\n";
+echo "Soma Ponderada: " . number_format($meuNeuronio->somaPonderada, 4) . "\n";
+echo "Saída (Tanh): " . number_format($meuNeuronio->saida, 4) . "\n";
+
+// Na Tangente Hiperbólica, o limiar comum é 0 (intervalo de -1 a 1)
+$decisao = ($meuNeuronio->saida >= 0) ? "ATIVADO (1)" : "DESATIVADO (-1/0)";
+echo "Decisão: $decisao\n";
+
+// Instanciando a "Struct" (Objeto)
+$meuNeuronio = new Neuronio($entradas, $pesos);
+$meuNeuronio->calcularSoma();
+$meuNeuronio->ativar2();
+
+echo "\n------ Resultado Sigmoide ------\n";
 echo "Soma Ponderada: " . number_format($meuNeuronio->somaPonderada, 4) . "\n";
 echo "Saída (Tanh): " . number_format($meuNeuronio->saida, 4) . "\n";
 
