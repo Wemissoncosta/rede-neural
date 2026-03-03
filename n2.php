@@ -32,8 +32,8 @@ class Neuronio {
      // Aplicando a Função Ativação (Sigmoide)
     public function ativar2(): void {
         $e = M_E;
-        $s = $this->somaponderada;
-        $this->saida = 1 / (1 + pow($e, -$s));
+        $s = $this->somaPonderada;
+        $this->saida = 1 / (1 + pow($e, exponent: -$s));
     }
 }
 
