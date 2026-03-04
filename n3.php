@@ -11,15 +11,15 @@ class Neuronio {
 
     public float $bias;
 
-    public function __construct(array $entradas, array $pesos, float $bias) {
-        $this->entradas = $entradas;
+    public function __construct( array $pesos, float $bias) {
         $this->pesos = $pesos;
         $this->bias = $bias;
     }
 
     // Calcula a Junção Somadora
-    public function calcularSoma(): void {
+    public function calcularSoma(array $entradas): void {
         $this->somaPonderada = 0;
+        $this->entradas = $entradas;
         foreach ($this->entradas as $i => $valor) {
             $this->somaPonderada += $valor * $this->pesos[$i];
         }
@@ -35,7 +35,7 @@ class Neuronio {
     }
 }
 
-class camada {
+class Camada {
     public array $neuronios;
 
     public function __construct(array $neuronios) {

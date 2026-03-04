@@ -23,9 +23,9 @@ for ($i = 0; $i < count($entrada); $i++) {
 
 // 2. Aplicação da Função de Ativação (Sigmoide)
 // Usamos M_E para maior precisão matemática
-//$saida = 1 / (1 + (M_E ** -$soma));
+$saida = 1 / (1 + (M_E ** -$soma));
 //3. TANGENTE HIPERBOLICA
-$saida = ((M_E ** $soma) - (M_E ** -$soma)) / ((M_E ** $soma) + (M_E ** -$soma));
+//$saida = ((M_E ** $soma) - (M_E ** -$soma)) / ((M_E ** $soma) + (M_E ** -$soma));
 
 
 echo "\n------ Resultado ------\n";
