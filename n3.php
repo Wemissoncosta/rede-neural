@@ -1,22 +1,18 @@
 <?php
 
-/**
- * Representa a estrutura de um Neurônio Artificial
- */
 class Neuronio {
     public array $entradas;
     public array $pesos;
     public float $somaPonderada;
     public float $saida;
-
     public float $bias;
-
     public function __construct( array $pesos, float $bias) {
         $this->pesos = $pesos;
         $this->bias = $bias;
     }
 
     // Calcula a Junção Somadora
+
     public function calcularSoma(array $entradas): void {
         $this->somaPonderada = 0;
         $this->entradas = $entradas;
@@ -25,9 +21,9 @@ class Neuronio {
         }
         $this->somaPonderada += $this->bias;
     }
-   
 
      // Aplicando a Função Ativação (Sigmoide)
+
     public function ativar2(): void {
         $e = M_E;
         $s = $this->somaPonderada;
@@ -41,16 +37,41 @@ class Camada {
     public function __construct(array $neuronios) {
         $this->neuronios = $neuronios;
     }
+
+    //function Process Neurônio
+
+    public function processar(array $entradas):array{
+      $saidas = []; //Começãmos com um array vazio para guardar os resultados
+      foreach ($this-> neuronios as $neuronio){
+        $neuronio->calcularSoma($entradas);
+        $neuronio->ativar2();
+        $saidas[] = $neuronio->saida;
+       }
+      return $saidas;
+    }
+}
+
+class redeNeural{
+    public array $camadas;
+    public function __construct(array $camadas) {
+        $this->camadas = $camadas;
+    }
+    public function processar(array $entradas):array{
+        $saidaAtual = $entradas;
+        foreach ($this->camadas as $camada){
+            $saidaAtual = $camada->processar($saidaAtual);
+        }
+        return $saidaAtual;
+    }
 }
 
 
 echo "------- Configuração do Neurônio (OO) -------\n";
-
 echo "Digite os valores de entrada (separados por vírgula): ";
 $entradas = array_map("floatval", explode(",", trim(fgets(STDIN))));
-
 echo "Digite os pesos (separados por vírgula): ";
 $pesos = array_map("floatval", explode(",", trim(fgets(STDIN))));
+
 
 if (count($entradas) !== count($pesos)) {
     die("Erro: Quantidade de entradas e pesos incompatível.\n");
