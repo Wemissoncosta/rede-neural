@@ -76,3 +76,22 @@ $pesos = array_map("floatval", explode(",", trim(fgets(STDIN))));
 if (count($entradas) !== count($pesos)) {
     die("Erro: Quantidade de entradas e pesos incompatível.\n");
 }
+
+$n1 = new Neuronio($pesos, bias: 1.0);
+$n2 = new Neuronio($pesos, bias:1.0);
+
+$camada1 = new Camada([$n1, $n2]);
+
+$n3 = new Neuronio([0.5,0.7], bias:1.0);
+
+$camda2 = new Camada([$n3]);
+
+
+$rede = new redeNeural([$camada1, $camda2]);
+
+// Passa os dados iniciais para a rede processar
+$resultadoFinal = $rede->processar($entradas);
+
+// Exibe o array com a saída do neurônio final
+echo "\nResultado Final da Rede Neural:\n";
+print_r($resultadoFinal);
