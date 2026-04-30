@@ -92,6 +92,10 @@ $rede = new redeNeural([$camada1, $camda2]);
 // Passa os dados iniciais para a rede processar
 $resultadoFinal = $rede->processar($entradas);
 
+// Exibe o array com a saída do neurônio final
+echo "\nResultado Final da Rede Neural:\n";
+print_r($resultadoFinal);
+
 $resultadoEsperado = 1.0; // Exemplo de resultado esperado para comparação
 
 $erro = $resultadoEsperado - $resultadoFinal[0];
@@ -99,3 +103,18 @@ $erro = $resultadoEsperado - $resultadoFinal[0];
 $derivada = $resultadoFinal[0] * (1 - $resultadoFinal[0]); // Derivada da função sigmoide
 
 $delta = $erro * $derivada;
+
+$taxaDeApedizado = 0.1;
+
+for ($i = 0; $i < count($n3->pesos); $i++) {
+    $n3->pesos[$i] = $n3->pesos[$i] + ($taxaDeApedizado * $delta * $n3->entradas[$i]);
+}
+
+$n3->bias = $n3->bias + ($taxaDeApedizado * $delta);
+
+// Passa os dados iniciais para a rede processar
+$resultadoFinal = $rede->processar($entradas);
+
+// Exibe o array com a saída do neurônio final
+echo "\nResultado Final da Rede Neural:\n";
+print_r($resultadoFinal);
